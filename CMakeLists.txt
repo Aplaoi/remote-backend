@@ -1,15 +1,15 @@
 cmake_minimum_required(VERSION 3.10)
-project(backend)
+project(remote-backend)
 
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_STANDARD_REQUIRED true)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_executable(
-        test
-        main.cpp
-)
-
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/libs/cpp-httplib)
-
+# 添加子模块
+add_subdirectory(libs/json)
 add_subdirectory(libs/cpp-httplib)
-target_link_libraries(test httplib)
+
+# 添加可执行文件
+add_executable(${PROJECT_NAME} main.cpp)
+
+# 链接库
+target_link_libraries(${PROJECT_NAME} PRIVATE httplib nlohmann_json::nlohmann_json)

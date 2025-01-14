@@ -1,44 +1,55 @@
 #include <iostream>
 #include "httplib.h"
+#include <nlohmann/json.hpp>
+#include <fstream>
 #include <string>
-#include <sstream>
-#include <thread>
-#include <mutex>
-#include <condition_variable>
+using namespace std;
+using json = nlohmann::json;
 
-std::string message;
-std::mutex mtx;
-std::condition_variable cv;
-bool message_ready = false;
-
-void inputThread() {
-    while (true) {
-        std::string input;
-        std::getline(std::cin, input);
-        std::lock_guard<std::mutex> lock(mtx);
-        message = input;
-        message_ready = true;
-        cv.notify_one();
+json readConfig(const string& config_path)
+{
+    ifstream config_file(config_path);
+    if (!config_file.is_open())
+    {
+        cerr << "unable to find config\n";
     }
+    json config;
+    config_file >> config;
+    return config;
 }
 
-int main() {
-    httplib::Server svr;
-    std::thread input(inputThread);
 
-    svr.Get("/message", [](const httplib::Request& req, httplib::Response& res) {
-        std::unique_lock<std::mutex> lock(mtx);
-        cv.wait(lock, []{ return message_ready; });
-        res.set_content(message, "text/plain");
+int main()
+{
+    httplib::Server server;
+    const string default_config_path = "/home/apl/cpp/remote-backend/config.json";
+    server.Options("/config", [](const httplib::Request& req, httplib::Response& res)
+    {
         res.set_header("Access-Control-Allow-Origin", "*");
         res.set_header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-        res.set_header("Access-Control-Allow-Headers", "Content-Type");
-        message_ready = false;
+        res.set_header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+        res.status = 204;
     });
 
+    server.Get("/config", [default_config_path](const httplib::Request& req, httplib::Response res)
+    {
+        try
+        {
+            json config = readConfig(default_config_path);
+            res.set_header("Access-Control-Allow-Origin", "*");
+            res.set_header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+            res.set_header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+            res.set_content(config.dump(), "application/json");
+        }
+        catch (const exception& err)
+        {
+            res.status = 500;
+            res.set_content("error" + string(err.what()), "text/plain");
+        }
+    });
 
-    std::cout << "Server is running on port 8080..." << std::endl;
-    svr.listen("0.0.0.0", 8080);
-    input.join();
-    return 0;
+    cout << "Server is running on 0.0.0.0:9002\n";
+    server.listen("0.0.0.0", 9002);
 }
+
+
