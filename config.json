@@ -1,303 +1,540 @@
 {
-    "Debug" : {
-        "System" : {
-            "AutoFire" : true,
-            "AutoEnemy" : true,
-            "AutoRune" : true,
-            "AutoCapture" : false
+    "Camera": {
+        "Base": {
+            "CameraType": "DaHeng16576",
+            "ExposureTime": 3000,
+            "FrameRate": 200,
+            "Gain": 24,
+            "LensType": "Prime6mm",
+            "Width": 1280
         },
-        "ImageThread" : {
-            "Scale" : 0.5,
-            "FPS" : 25,
-            "UI" : true,
-            "Imwrite" : false,
-            "Binary" : false,
-            "Light" : false,
-            "Histogram" : false
+        "CamLensDir": "/etc/openrm/CamLens.json",
+        "DebugSaveDir": "/home/nvidia/Code/TJURM-Aiming/data/debug",
+        "Far": {
+            "CameraType": "DaHeng720_540",
+            "ExposureTime": 3000,
+            "FrameRate": 120,
+            "Gain": 24,
+            "LensType": "Prime25mm",
+            "Width": 720
         },
-        "Display" : {
-            "Reprojection" : false,
-            "PipelineDelay" : false,
-            "PointSkip" : false
+        "Switch": {
+            "BaseToFarDist": 7,
+            "FarToBaseDist": 5
         },
-        "Control" : {
-            "Serial" : true,
-            "Timeout" : true,
-            "ManuCapture" : false,
-            "ManuFire" : false,
-            "ManuRune" : false,
-            "BigRune" : false
-        },
-        "PlusPnP" : {
-            "Enable" : true,
-            "CostImage" : false
-        },
-        "StateDelay" : {
-            "Enable" : true,
-            "TimeS" : 0.05,
-            "QueueSize" : 100,
-            "SendWait" : 10
-        },
-        "SaveSpeed" : {
-            "SpeedWrite" : true,
-            "SavePath" : "/etc/openrm/speed_log.txt"
-        },
-
-        "BigDecal" : "/etc/openrm/image/armor1.png",
-        "SmallDecal" : "/etc/openrm/image/armor3.png"
+        "VideoSaveDir": "/home/nvidia/Code/TJURM-Aiming/data/video"
     },
-
-    "Car" : {
-        "SelfColor" : "BLUE",
-        "Gravity" : 9.8,
-        
-        "ShootSpeed" : 28,
-        "ShootDelay" : 0.07,
-        
-        "RotateDelay" : 0.05,
-        "RotateDelayOutpost" : 0.02,
-        "RotateDelayRune" : 0.1,
-
-        "StartFireDelay" : 0.05,
-
-        "OffsetDef" : ["X", "Y", "Z", "Yaw", "Pitch"],
-        "AxisOffset" :  [0.0, 0.0, 0.0],
-        "BarrelOffset" : [0.0, 0.0, 0.0, 0.0, 0.0],
-        "RefereeOffset" : [0.0, 0.0, 0.0, 0.0, 0.0],
-        "CameraOffset" : {
-            "Base" : [0.0, 0.0, 0.0, 0.0, 0.0],
-            "Far" : [0.0, 0.0, 0.0, 0.0, 0.0]
+    "Car": {
+        "AxisOffset": [
+            0,
+            0,
+            0
+        ],
+        "BarrelOffset": [
+            0,
+            0,
+            0,
+            0,
+            0
+        ],
+        "CameraOffset": {
+            "Base": [
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "Far": [
+                0,
+                0,
+                0,
+                0,
+                0
+            ]
         },
-        "RotateParam" : [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+        "Gravity": 9.8,
+        "OffsetDef": [
+            "X",
+            "Y",
+            "Z",
+            "Yaw",
+            "Pitch"
+        ],
+        "RefereeOffset": [
+            0,
+            0,
+            0,
+            0,
+            0
+        ],
+        "RotateDelay": 0.05,
+        "RotateDelayOutpost": 0.02,
+        "RotateDelayRune": 0.1,
+        "RotateParam": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+        ],
+        "SelfColor": "BLUE",
+        "ShootDelay": 0.07,
+        "ShootSpeed": 28,
+        "StartFireDelay": 0.05
     },
-
-    "Camera" : {
-        "CamLensDir" : "/etc/openrm/CamLens.json",
-        "VideoSaveDir" : "/home/nvidia/Code/TJURM-Aiming/data/video",
-        "DebugSaveDir" : "/home/nvidia/Code/TJURM-Aiming/data/debug",
-        "Base" : {
-            "CameraType" : "DaHeng1280_1024",
-            "LensType" : "Prime6mm",
-            "Width" : 1280,
-            "ExposureTime" : 3000.0,
-            "FrameRate" : 200.0,
-            "Gain" : 24.0
-            
+    "Debug": {
+        "BigDecal": "/etc/openrm/image/armor1.png",
+        "Control": {
+            "BigRune": false,
+            "ManuCapture": false,
+            "ManuFire": false,
+            "ManuRune": false,
+            "Serial": true,
+            "Timeout": true
         },
-        "Far" : {
-            "CameraType" : "DaHeng720_540",
-            "LensType" : "Prime25mm",
-            "Width" : 720,
-            "ExposureTime" : 3000.0,
-            "FrameRate" : 120.0,
-            "Gain" : 24.0
+        "Display": {
+            "PipelineDelay": false,
+            "PointSkip": false,
+            "Reprojection": false
         },
-        "Switch" : {
-            "BaseToFarDist" : 7.0,
-            "FarToBaseDist" : 5.0
+        "ImageThread": {
+            "Binary": false,
+            "FPS": 25,
+            "Histogram": false,
+            "Imwrite": false,
+            "Light": false,
+            "Scale": 0.5,
+            "UI": true
+        },
+        "PlusPnP": {
+            "CostImage": false,
+            "Enable": true
+        },
+        "SaveSpeed": {
+            "SavePath": "/etc/openrm/speed_log.txt",
+            "SpeedWrite": true
+        },
+        "SmallDecal": "/etc/openrm/image/armor3.png",
+        "StateDelay": {
+            "Enable": true,
+            "QueueSize": 100,
+            "SendWait": 10,
+            "TimeS": 0.05
+        },
+        "System": {
+            "AutoCapture": false,
+            "AutoEnemy": true,
+            "AutoFire": true,
+            "AutoRune": true
         }
     },
-
-    "Model" : {
-        "YoloArmor" : {
-            "TypeDefine" : ["V5", "FP", "FPX"],
-            "Type" : "V5",
-            "V5" : {
-                "DirONNX" : "/etc/openrm/models/v5n.onnx",
-                "DirEngine" : "/etc/openrm/models/v5n.engine",
-                "InferWidth" : 640,
-                "InferHeight" : 480,
-                "LocateNum" : 4,
-                "ColorNum" : 0,
-                "ClassNum" : 7,
-                "BboxesNum" : 18900,
-                "ConfThresh" : 0.3,
-                "NMSThresh" : 0.02,
-                "NeedHist" : false,
-                "ClassMap" : [0, 1, 2, 3, 4, 5, 6],
-                "ColorMap" : [0, 1, 2, 3]
+    "Kalman": {
+        "Antitop": {
+            "BalanceOmegaQ": [
+                1,
+                2,
+                5
+            ],
+            "BalanceOmegaR": [
+                1
+            ],
+            "BalanceOmgDef": [
+                "theta",
+                "omega",
+                "beta"
+            ],
+            "CenterDef": [
+                "x",
+                "y",
+                "vx",
+                "vy"
+            ],
+            "CenterQ": [
+                0.1,
+                0.1,
+                0.01,
+                0.01
+            ],
+            "CenterR": [
+                1,
+                1
+            ],
+            "FireAngle": {
+                "Armor": 0.3,
+                "CenterBig": 0.7,
+                "CenterSmall": 0.3
             },
-            "FPX" : {
-                "DirONNX" : "/etc/openrm/models/RP24.onnx",
-                "DirEngine" : "/etc/openrm/models/RP24.engine",
-                "InferWidth" : 640,
-                "InferHeight" : 640,
-                "LocateNum" : 8,
-                "ColorNum" : 4,
-                "ClassNum" : 9,
-                "BboxesNum" : 25200,
-                "ConfThresh" : 0.3,
-                "NMSThresh" : 0.02,
-                "NeedHist" : false,
-                "ClassMap" : [0, 1, 2, 3, 4, 5, 6, 6, 6],
-                "ColorMap" : [1, 0, 2, 3]
-            }
+            "FireDelay": 1,
+            "FireUpdate": 100,
+            "MaxR": 0.4,
+            "MinR": 0.15,
+            "OmegaDef": [
+                "theta",
+                "omega",
+                "beta"
+            ],
+            "OmegaQ": [
+                10,
+                100,
+                1000
+            ],
+            "OmegaR": [
+                0.01
+            ],
+            "Q": [
+                0.01,
+                0.01,
+                0.01,
+                0.02,
+                0.05,
+                0.05,
+                0.0001,
+                0.04,
+                0.001
+            ],
+            "Qdef": [
+                "x",
+                "y",
+                "z",
+                "theta",
+                "vx",
+                "vy",
+                "vz",
+                "omega",
+                "r"
+            ],
+            "R": [
+                0.1,
+                0.1,
+                0.1,
+                0.2
+            ]
         },
-        "YoloRune" : {
-            "DirONNX" : "/etc/openrm/models/rune.onnx",
-            "DirEngine" : "/etc/openrm/models/rune.engine",
-            "InferWidth" : 640,
-            "InferHeight" : 512,
-            "ClassNum" : 2,
-            "BboxesNum" : 20160,
-            "ConfThresh" : 0.95,
-            "NMSThresh" : 0.30
-        }
-    },
-
-    "Points" : {
-        "Threshold" : {
-            "RatioRed" : 20,
-            "RatioBlue" : 30,
-            "EnemySplit" : 50
-        },
-        "Extend" : {
-            "ROIwidth" : 1.4,
-            "ROIheight" : 1.8,
-            "PointLineDist" : 32768.0,
-            "PointRadiusRatio" : 0.15
-        },
-        "Lightbar" : {
-            "MinRectSide" : 1.0,
-            "MaxRectSide" : 15.0,
-            "MinArea" : 5.0, 
-            "MinRatioArea" : 0.2,
-            "CircleMinRatioArea" : 0.8,
-            "CircleMinRadius" : 15,
-            "MaxAngle" : 45.0
-        },
-        "Expansion" : {
-            "RatioWidth" : 1.2,
-            "RatioHeight" : 2.5,
-            "RoiRatio" : 8
-        },
-        "Armor" : {
-            "MaxOffset" : 0.5,
-            "MaxRatioLength" : 1.6,
-            "MaxRatioArea" : 3.5,
-            "MaxAngleDiff" : 20.0,
-            "MaxAngleAvg" : 40.0,
-            "RatioSide" : {
-                "Min" : 1.0,
-                "Max" : 10.0
+        "IterationNum": 4,
+        "Outpost": {
+            "Def": [
+                "x",
+                "y",
+                "z",
+                "theta",
+                "vx",
+                "vy",
+                "vz",
+                "omega"
+            ],
+            "FireAngle": {
+                "Armor": 0.3,
+                "Center": 0.1
             },
-            "SizeRatio" : 3.0,
-            "TowerSizeRatio" : 3.4,
-            "AreaPercent" : 0.5
+            "FireDelay": 1,
+            "FireUpdate": 100,
+            "OmegaQ": [
+                1,
+                2
+            ],
+            "OmegaR": [
+                1
+            ],
+            "OmgDef": [
+                "theta",
+                "omega"
+            ],
+            "Q": [
+                0.01,
+                0.01,
+                0.01,
+                0.005,
+                0.001
+            ],
+            "R": [
+                0.1,
+                0.1,
+                0.1,
+                0.2
+            ]
         },
-        "PnP" : {
-            "Red" : {
-                "BigArmor" : {
-                    "Width" : 230.0,
-                    "Height" : 50.0
-                },
-                "SmallArmor" : {
-                    "Width" : 130.0,
-                    "Height" : 50.0
-                }
-            },
-            "Blue" : {
-                "BigArmor" : {
-                    "Width" : 230.0,
-                    "Height" : 50.0
-                },
-                "SmallArmor" : {
-                    "Width" : 130.0,
-                    "Height" : 50.0
-                }
-            },
-            "Rune" : {
-                "Width" : 270,
-                "Height" : 270
-            }
-        }
-    },
-
-    "Kalman" : {
-        "Antitop" : {
-            "MinR" : 0.15,
-            "MaxR" : 0.4,
-            "FireDelay" : 1.0,
-            "FireUpdate" : 100,
-            "FireAngle" : {
-                "Armor" : 0.3,
-                "CenterBig" : 0.7,
-                "CenterSmall" : 0.3
-            },
-            
-            "Qdef" : ["x", "y", "z", "theta", "vx", "vy", "vz", "omega", "r" ],
-            "Q" : [0.01, 0.01, 0.01, 0.02, 0.05, 0.05, 0.0001, 0.04, 0.001],
-            "R" : [0.1, 0.1, 0.1, 0.2],
-
-            "CenterDef" : ["x", "y", "vx", "vy"],
-            "CenterQ" : [0.1, 0.1, 0.01, 0.01],
-            "CenterR" : [1, 1],
-
-            "OmegaDef" : ["theta", "omega", "beta"],
-            "OmegaQ" : [1e1, 1e2, 1e3],
-            "OmegaR" : [1e-2],
-
-            "BalanceOmgDef" : ["theta", "omega", "beta"],
-            "BalanceOmegaQ" : [1, 2, 5],
-            "BalanceOmegaR" : [1]
-        },
-
-        "TrackQueue" : {
-            "Count" : 10,
-            "Distance" : 0.20,
-            "Delay" : 0.5,
-
-            "CarDef" : ["x", "y", "z", "v", "vz", "angle", "w", "a"],
-            "CarQ" : [0.1, 0.1, 0.1, 500, 1, 1, 100, 500],
-            "CarR" : [0.1, 0.1, 0.1],
-
-            "TowerDef" : ["x", "y", "z", "theta", "vx", "vy", "vz", "omega", "ax", "ay", "b"],
-            "TowerQ" : [10, 10, 10, 1, 0.01, 0.01, 0.001, 0.1, 1e-6, 1e-6, 0.01],
-            "TowerR" : [1, 1, 1, 1]
-        },
-        
-        "Outpost" : {
-            "FireUpdate" : 100,
-            "FireDelay" : 1,
-            "FireAngle" : {
-                "Armor" : 0.3,
-                "Center" : 0.1
-            },
-
-            "Def" : ["x", "y", "z", "theta", "vx", "vy", "vz", "omega"],
-            "Q" : [0.01, 0.01, 0.01, 0.005, 0.001],
-            "R" : [0.1, 0.1, 0.1, 0.2],
-
-            "OmgDef" : ["theta", "omega"],
-            "OmegaQ" : [1, 2],
-            "OmegaR" : [1]
-        },
-
-        "Rune" : {
-            "BigRuneFireSpd" : 1.6,
-            "FireAfterTransDelay" : 0.08,
-            "FireFlagKeepDelay" : 0.05,
+        "Rune": {
+            "BigDef": [
+                "x",
+                "y",
+                "z",
+                "theta",
+                "angle",
+                "p",
+                "a",
+                "w"
+            ],
+            "BigQ": [
+                0.01,
+                0.01,
+                0.01,
+                0.01,
+                0.01,
+                0.1,
+                0.1,
+                0.1
+            ],
+            "BigR": [
+                1,
+                1,
+                1,
+                1,
+                1
+            ],
+            "BigRuneFireSpd": 1.6,
+            "FireAfterTransDelay": 0.08,
+            "FireFlagKeepDelay": 0.05,
             "FireIntervalDelay": 0.6,
-            "TureToCenterDelay" : 1.0,
-            
-            "SmallDef" : ["x", "y", "z", "theta", "angle", "spd"],
-            "SmallQ" : [0.01, 0.01, 0.01, 0.01, 1e-4, 1e-4],
-            "SmallR" : [1, 1, 1, 1, 1],
-
-            "BigDef" : ["x", "y", "z", "theta", "angle", "p", "a", "w"],
-            "BigQ" : [0.01, 0.01, 0.01, 0.01, 0.01, 0.1, 0.1, 0.1],
-            "BigR" : [1, 1, 1, 1, 1],
-
-            "SpdDef" : ["angle", "spd"],
-            "SpdQ" : [1, 10],
-            "SpdR" : [1]
+            "SmallDef": [
+                "x",
+                "y",
+                "z",
+                "theta",
+                "angle",
+                "spd"
+            ],
+            "SmallQ": [
+                0.01,
+                0.01,
+                0.01,
+                0.01,
+                0.0001,
+                0.0001
+            ],
+            "SmallR": [
+                1,
+                1,
+                1,
+                1,
+                1
+            ],
+            "SpdDef": [
+                "angle",
+                "spd"
+            ],
+            "SpdQ": [
+                1,
+                10
+            ],
+            "SpdR": [
+                1
+            ],
+            "TureToCenterDelay": 1
         },
-        "IterationNum" : 4,
-        "Switch" : {
-            "TrackToAntitop" : 2.0,
-            "AntitopToTrack" : 1.5,
-            "CenterToArmor" : 5.0,
-            "ArmorToCenter" : 7.0
+        "Switch": {
+            "AntitopToTrack": 1.5,
+            "ArmorToCenter": 7,
+            "CenterToArmor": 5,
+            "TrackToAntitop": 2
+        },
+        "TrackQueue": {
+            "CarDef": [
+                "x",
+                "y",
+                "z",
+                "v",
+                "vz",
+                "angle",
+                "w",
+                "a"
+            ],
+            "CarQ": [
+                0.1,
+                0.1,
+                0.1,
+                500,
+                1,
+                1,
+                100,
+                500
+            ],
+            "CarR": [
+                0.1,
+                0.1,
+                0.1
+            ],
+            "Count": 10,
+            "Delay": 0.5,
+            "Distance": 0.2,
+            "TowerDef": [
+                "x",
+                "y",
+                "z",
+                "theta",
+                "vx",
+                "vy",
+                "vz",
+                "omega",
+                "ax",
+                "ay",
+                "b"
+            ],
+            "TowerQ": [
+                10,
+                10,
+                10,
+                1,
+                0.01,
+                0.01,
+                0.001,
+                0.1,
+                1e-06,
+                1e-06,
+                0.01
+            ],
+            "TowerR": [
+                1,
+                1,
+                1,
+                1
+            ]
+        }
+    },
+    "Model": {
+        "YoloArmor": {
+            "FPX": {
+                "BboxesNum": 25200,
+                "ClassMap": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    6,
+                    6
+                ],
+                "ClassNum": 9,
+                "ColorMap": [
+                    1,
+                    0,
+                    2,
+                    3
+                ],
+                "ColorNum": 4,
+                "ConfThresh": 0.3,
+                "DirEngine": "/etc/openrm/models/RP24.engine",
+                "DirONNX": "/etc/openrm/models/RP24.onnx",
+                "InferHeight": 640,
+                "InferWidth": 640,
+                "LocateNum": 8,
+                "NMSThresh": 0.02,
+                "NeedHist": false
+            },
+            "Type": "V5",
+            "TypeDefine": [
+                "V5",
+                "FP",
+                "FPX"
+            ],
+            "V5": {
+                "BboxesNum": 18900,
+                "ClassMap": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6
+                ],
+                "ClassNum": 7,
+                "ColorMap": [
+                    0,
+                    1,
+                    2,
+                    3
+                ],
+                "ColorNum": 0,
+                "ConfThresh": 0.3,
+                "DirEngine": "/etc/openrm/models/v5n.engine",
+                "DirONNX": "/etc/openrm/models/v5n.onnx",
+                "InferHeight": 480,
+                "InferWidth": 640,
+                "LocateNum": 4,
+                "NMSThresh": 0.02,
+                "NeedHist": false
+            }
+        },
+        "YoloRune": {
+            "BboxesNum": 20160,
+            "ClassNum": 2,
+            "ConfThresh": 0.95,
+            "DirEngine": "/etc/openrm/models/rune.engine",
+            "DirONNX": "/etc/openrm/models/rune.onnx",
+            "InferHeight": 512,
+            "InferWidth": 640,
+            "NMSThresh": 0.3
+        }
+    },
+    "Points": {
+        "Armor": {
+            "AreaPercent": 0.5,
+            "MaxAngleAvg": 40,
+            "MaxAngleDiff": 20,
+            "MaxOffset": 0.5,
+            "MaxRatioArea": 3.5,
+            "MaxRatioLength": 1.6,
+            "RatioSide": {
+                "Max": 10,
+                "Min": 1
+            },
+            "SizeRatio": 3,
+            "TowerSizeRatio": 3.4
+        },
+        "Expansion": {
+            "RatioHeight": 2.5,
+            "RatioWidth": 1.2,
+            "RoiRatio": 8
+        },
+        "Extend": {
+            "PointLineDist": 32768,
+            "PointRadiusRatio": 0.15,
+            "ROIheight": 1.8,
+            "ROIwidth": 1.4
+        },
+        "Lightbar": {
+            "CircleMinRadius": 15,
+            "CircleMinRatioArea": 0.8,
+            "MaxAngle": 45,
+            "MaxRectSide": 15,
+            "MinArea": 5,
+            "MinRatioArea": 0.2,
+            "MinRectSide": 1
+        },
+        "PnP": {
+            "Blue": {
+                "BigArmor": {
+                    "Height": 50,
+                    "Width": 230
+                },
+                "SmallArmor": {
+                    "Height": 50,
+                    "Width": 130
+                }
+            },
+            "Red": {
+                "BigArmor": {
+                    "Height": 50,
+                    "Width": 230
+                },
+                "SmallArmor": {
+                    "Height": 50,
+                    "Width": 130
+                }
+            },
+            "Rune": {
+                "Height": 270,
+                "Width": 270
+            }
+        },
+        "Threshold": {
+            "EnemySplit": 50,
+            "RatioBlue": 30,
+            "RatioRed": 20
         }
     }
 }

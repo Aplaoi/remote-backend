@@ -18,7 +18,18 @@ json readConfig(const string& config_path)
     return config;
 }
 
-void setCORSHeaders(httplib::Response& res) {
+void writeConfig(const string& config_path, const json& new_config)
+{
+    ofstream previous_config(config_path);
+    if (!previous_config.is_open())
+    {
+        cerr << "unable to find config\n";
+    }
+    previous_config << new_config.dump(4);
+}
+
+void setCORSHeaders(httplib::Response& res)
+{
     res.set_header("Access-Control-Allow-Origin", "*");
     res.set_header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
     res.set_header("Access-Control-Allow-Headers", "Content-Type, Authorization");
@@ -32,7 +43,7 @@ int main()
     server.Options("/config", [](const httplib::Request& req, httplib::Response& res)
     {
         setCORSHeaders(res);
-        res.status = 204; 
+        res.status = 204;
     });
 
     server.Get("/config", [default_config_path](const httplib::Request& req, httplib::Response& res)
@@ -49,6 +60,13 @@ int main()
             res.status = 500;
             res.set_content("error: " + string(err.what()), "text/plain");
         }
+    });
+
+    server.Post("/config", [default_config_path](const httplib::Request& req, httplib::Response& res)
+    {
+        json new_config = json::parse(req.body);
+        writeConfig(default_config_path, new_config);
+        setCORSHeaders(res);
     });
 
     cout << "Server is running on 0.0.0.0:9002\n";
