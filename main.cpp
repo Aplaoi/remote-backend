@@ -18,38 +18,39 @@ json readConfig(const string& config_path)
     return config;
 }
 
+void setCORSHeaders(httplib::Response& res) {
+    res.set_header("Access-Control-Allow-Origin", "*");
+    res.set_header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    res.set_header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+}
 
 int main()
 {
     httplib::Server server;
     const string default_config_path = "/home/apl/cpp/remote-backend/config.json";
+
     server.Options("/config", [](const httplib::Request& req, httplib::Response& res)
     {
-        res.set_header("Access-Control-Allow-Origin", "*");
-        res.set_header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-        res.set_header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-        res.status = 204;
+        setCORSHeaders(res);
+        res.status = 204; 
     });
 
-    server.Get("/config", [default_config_path](const httplib::Request& req, httplib::Response res)
+    server.Get("/config", [default_config_path](const httplib::Request& req, httplib::Response& res)
     {
         try
         {
             json config = readConfig(default_config_path);
-            res.set_header("Access-Control-Allow-Origin", "*");
-            res.set_header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-            res.set_header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+            setCORSHeaders(res);
             res.set_content(config.dump(), "application/json");
         }
         catch (const exception& err)
         {
+            setCORSHeaders(res);
             res.status = 500;
-            res.set_content("error" + string(err.what()), "text/plain");
+            res.set_content("error: " + string(err.what()), "text/plain");
         }
     });
 
     cout << "Server is running on 0.0.0.0:9002\n";
     server.listen("0.0.0.0", 9002);
 }
-
-
