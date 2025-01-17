@@ -3,8 +3,10 @@
 #include "httplib.h"
 #include <nlohmann/json.hpp>
 #include <string>
+#include <opencv2/opencv.hpp>
 using namespace std;
 using json = nlohmann::json;
+using namespace cv;
 
 //读取配置文件
 json readConfig(const string& config_path);
@@ -12,9 +14,16 @@ json readConfig(const string& config_path);
 //写入配置文件
 void writeConfig(const string& config_path, const json& new_config);
 
+//设置CORS头，用于跨域请求
+void setCORSHeaders(httplib::Response &res);
 
+//解码Mat格式
+vector<uchar> encodeImage(const Mat& image);
 
-//处理前端请求
-void httpCommunicate(const string& path,httplib::Server &server);
+//处理前端修改配置请求
+void httpConfigModification(const string& path,httplib::Server &server);
+
+//处理前端视频流请求
+void httpVideoStream(const Mat& frame,httplib::Server &server);
 
 #endif //REMOTE_CONTROL_H

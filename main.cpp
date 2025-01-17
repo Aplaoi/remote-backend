@@ -6,16 +6,25 @@
 using namespace std;
 using json = nlohmann::json;
 #include "include/remote_control.h"
+#include <opencv2/opencv.hpp>
 
 int main()
 {
     httplib::Server server;
+   
     const string default_config_path = "/mnt/windows/local_cpp/remote-backend/config.json";
-    json config=readConfig(default_config_path);
-    int fps = config["Debug"]["ImageThread"]["FPS"];
-    bool light_flag = config["Debug"]["ImageThread"]["Light"];
-    double scale = config["Debug"]["ImageThread"]["Scale"];
-    int delay = 1000 / fps;
-    httpCommunicate(default_config_path,server);
+    httpConfigModification(default_config_path,server);
+    VideoCapture cap(0);
+    if (!cap.isOpened()){
+        cerr<<"unable to open the camera\n";
+        return -1;
+    }
+    while (true)
+    {
+        Mat frame;
+        cap >> frame;
+        httpVideoStream(frame,server);
+    }
+    server.listen("0.0.0.0",9002);
     cout << "Server is running on 0.0.0.0:9002\n";
 }
