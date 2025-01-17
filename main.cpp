@@ -5,70 +5,17 @@
 #include <string>
 using namespace std;
 using json = nlohmann::json;
-
-json readConfig(const string& config_path)
-{
-    ifstream config_file(config_path);
-    if (!config_file.is_open())
-    {
-        cerr << "unable to find config\n";
-    }
-    json config;
-    config_file >> config;
-    return config;
-}
-
-void writeConfig(const string& config_path, const json& new_config)
-{
-    ofstream previous_config(config_path);
-    if (!previous_config.is_open())
-    {
-        cerr << "unable to find config\n";
-    }
-    previous_config << new_config.dump(4);
-}
-
-void setCORSHeaders(httplib::Response& res)
-{
-    res.set_header("Access-Control-Allow-Origin", "*");
-    res.set_header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-    res.set_header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-}
+#include "include/remote_control.h"
 
 int main()
 {
     httplib::Server server;
-    const string default_config_path = "/home/apl/cpp/remote-backend/config.json";
-
-    server.Options("/config", [](const httplib::Request& req, httplib::Response& res)
-    {
-        setCORSHeaders(res);
-        res.status = 204;
-    });
-
-    server.Get("/config", [default_config_path](const httplib::Request& req, httplib::Response& res)
-    {
-        try
-        {
-            json config = readConfig(default_config_path);
-            setCORSHeaders(res);
-            res.set_content(config.dump(), "application/json");
-        }
-        catch (const exception& err)
-        {
-            setCORSHeaders(res);
-            res.status = 500;
-            res.set_content("error: " + string(err.what()), "text/plain");
-        }
-    });
-
-    server.Post("/config", [default_config_path](const httplib::Request& req, httplib::Response& res)
-    {
-        json new_config = json::parse(req.body);
-        writeConfig(default_config_path, new_config);
-        setCORSHeaders(res);
-    });
-
+    const string default_config_path = "/mnt/windows/local_cpp/remote-backend/config.json";
+    json config=readConfig(default_config_path);
+    int fps = config["Debug"]["ImageThread"]["FPS"];
+    bool light_flag = config["Debug"]["ImageThread"]["Light"];
+    double scale = config["Debug"]["ImageThread"]["Scale"];
+    int delay = 1000 / fps;
+    httpCommunicate(default_config_path,server);
     cout << "Server is running on 0.0.0.0:9002\n";
-    server.listen("0.0.0.0", 9002);
 }
