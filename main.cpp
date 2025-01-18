@@ -26,12 +26,11 @@ int main()
         cerr<<"unable to open the camera\n";
         return -1;
     }
-
     Mat current_frame;
     mutex frame_mutex;
     httpVideoStream(server, current_frame, frame_mutex);
     thread server_thread(serverListen,ref(server));
-    while (isServerRunning)
+    while (true)
     {
         Mat frame;
         cap >> frame;
@@ -45,10 +44,7 @@ int main()
         this_thread::sleep_for(chrono::milliseconds(33));
     }
     server.stop();
-    server_thread.join(); // 等待服务器线程结束
-
+    server_thread.join();
     cout << "Server stopped\n";
     return 0;
-
-
 }
