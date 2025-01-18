@@ -3,15 +3,22 @@
 #include <nlohmann/json.hpp>
 #include <fstream>
 #include <string>
+#include <thread>
+#include <mutex>
+#include <chrono>
 using namespace std;
 using json = nlohmann::json;
 #include "include/remote_control.h"
 #include <opencv2/opencv.hpp>
 
+void serverListen(httplib::Server &server) {
+    server.listen("0.0.0.0",9002);
+    cout << "Server is running on 0.0.0.0:9002\n";
+}
+
 int main()
 {
     httplib::Server server;
-   
     const string default_config_path = "/mnt/windows/local_cpp/remote-backend/config.json";
     httpConfigModification(default_config_path,server);
     VideoCapture cap(0);
@@ -19,12 +26,29 @@ int main()
         cerr<<"unable to open the camera\n";
         return -1;
     }
-    while (true)
+
+    Mat current_frame;
+    mutex frame_mutex;
+    httpVideoStream(server, current_frame, frame_mutex);
+    thread server_thread(serverListen,ref(server));
+    while (isServerRunning)
     {
         Mat frame;
         cap >> frame;
-        httpVideoStream(frame,server);
+        if (frame.empty()){
+            cout<<"fail to fetch the frame from camera\n";
+            continue;
+        }
+        lock_guard<mutex> lock(frame_mutex);
+        current_frame=frame.clone();
+        
+        this_thread::sleep_for(chrono::milliseconds(33));
     }
-    server.listen("0.0.0.0",9002);
-    cout << "Server is running on 0.0.0.0:9002\n";
+    server.stop();
+    server_thread.join(); // 等待服务器线程结束
+
+    cout << "Server stopped\n";
+    return 0;
+
+
 }

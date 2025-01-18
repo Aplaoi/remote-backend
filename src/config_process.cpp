@@ -31,7 +31,7 @@ void setCORSHeaders(httplib::Response & res) {
 }
 
 void httpConfigModification(const string& path,httplib::Server& server) {
-    //预检请求
+    //预检请求，debug使用
     server.Options("/config", [](const httplib::Request& req, httplib::Response& res)
     {
         setCORSHeaders(res);
