@@ -1,7 +1,7 @@
 {
     "Camera": {
         "Base": {
-            "CameraType": "DaHeng16576",
+            "CameraType": "DaHeng1676",
             "ExposureTime": 3000,
             "FrameRate": 200,
             "Gain": 24,

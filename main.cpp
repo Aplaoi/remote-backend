@@ -41,7 +41,7 @@ int main()
         lock_guard<mutex> lock(frame_mutex);
         current_frame=frame.clone();
         
-        this_thread::sleep_for(chrono::milliseconds(33));
+        this_thread::sleep_for(chrono::milliseconds(50));
     }
     server.stop();
     server_thread.join();
