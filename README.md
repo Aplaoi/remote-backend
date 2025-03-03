@@ -27,32 +27,6 @@ remote-backend/
 
 ## 函数接口说明
 
-### `json readConfig(const string& config_path)`
-
-- 用途：从指定路径读取 JSON 格式的配置文件，将其解析为 `json` 对象返回
-- 参数
-  - `config_path`：配置文件的路径，类型为`string`
-
-### `void writeConfig(const string& config_path, const json& new_config)`
-
-- 用途：将给定的 `json` 对象写入到指定路径的JSON配置文件中
-- 参数
-  - `config_path`：配置文件的路径，类型为 `string`。
-  - `new_config`：要写入文件的新 `json` 对象，类型为 `json`。
-
-### `void setCORSHeaders(httplib::Response &res)`
-
-- 用途：设置 HTTP 响应的跨域资源共享（CORS）头信息，允许跨域请求。主要是debug用，后续可能简化废除。
-
-- 参数
-
-  - `res`：`httplib::Response` 对象的引用，用于设置响应头信息。
-
-  设置的响应头信息包括：
-
-  - `Access-Control-Allow-Origin: *`：允许所有域名进行跨域请求。
-  - `Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS`：允许的 HTTP 请求方法。
-  - `Access-Control-Allow-Headers: Content-Type, Authorization`：允许的请求头字段。
 
 ### `vector<uchar> encodeImage(const Mat& image)`
 
@@ -71,7 +45,7 @@ remote-backend/
 
   添加的路由包括：
 
-  - `OPTIONS /config`：处理预检请求，设置 CORS 头信息并返回状态码 204，主要是debug用，非必要。
+  - `OPTIONS /config`：处理预检请求，设置 CORS 头信息并返回状态码 204，主要是POST前处理跨域 CORS 请求
   - `GET /config`：读取配置文件并以 JSON 格式返回配置信息。如果读取失败，返回状态码 500 和错误信息。
   - `POST /config`：解析请求体中的 JSON 数据并写入配置文件
 
